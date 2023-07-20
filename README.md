@@ -9,14 +9,14 @@
 <h1 align="center"/>Clash Meta Config Example for <a href="https://github.com/Gozargah/Marzban">Marzban</a></h1>
 
 ## فهرست مطالب
-- [ویژگی‌ها](#ویژگی‌ها)
+- [ویژگی‌ ها](#ویژگی-ها)
 - [مراحل نصب](#مراحل-نصب)
 - [لینک دانلود کلش متا](#لینک-دانلود-کلش-متا)
 
 # مقدمه
 کلش متا یک پروکسی مبتنی بر قوانین است که به شما این امکان را می‌دهد که تنظیمات مربوط به برنامه از قبیل DNS و مسیریابی و ... را از سمت سرور انجام دهید. به عنوان مثال، می‌توانید از سمت سرور، کلش را به گونه‌ای تنظیم کنید که اتصال به سایت‌های ایرانی به صورت مستقیم انجام شود.
 
-# ویژگی‌ها
+# ویژگی ها
 - وصل شدن به سریع ترین کانفیگ
 - وصل شدن به اولین کانفیگ سالم
 - لودبالانس
@@ -27,7 +27,7 @@
 # مراحل نصب
 1. دانلود فایل template
 ```sh
-sudo wget -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/template.yml
+sudo wget -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/master/template.yml
 ```
 
 2. اضافه کردن مشخصات به فایل .env:
