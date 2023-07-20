@@ -27,7 +27,7 @@
 # مراحل نصب
 1. دانلود فایل template
 ```sh
-sudo wget -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/master/template.yml
+sudo wget -N -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/master/template.yml
 ```
 
 2. اضافه کردن مشخصات به فایل .env:

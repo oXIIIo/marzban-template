@@ -84,6 +84,7 @@ rule-providers:
     interval: 86400
 
 rules:
+  - IP-CIDR,10.10.34.0/24,Proxy
   - RULE-SET,ads,REJECT
   - RULE-SET,iran-ads,REJECT
   - RULE-SET,iran-sites,DIRECT
