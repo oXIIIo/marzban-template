@@ -1,0 +1,93 @@
+mixed-port: 10801
+allow-lan: true
+bind-address: '*'
+find-process-mode: 'strict'
+mode: 'rule'
+log-level: 'debug'
+ipv6: true
+global-client-fingerprint: 'chrome'
+
+dns:
+  default-nameserver:
+    - 8.8.8.8
+    - 8.8.4.4
+    - 1.1.1.1
+    - 1.0.0.1
+  nameserver:
+    - 8.8.8.8
+    - 8.8.4.4
+    - 1.1.1.1
+    - 1.0.0.1
+    - 'https://dns.google/dns-query'
+
+{{ conf | except("proxy-groups", "port", "mode", "rules") | yaml }}
+
+proxy-groups:
+- name: 'Proxy'
+  type: 'select'
+  proxies:
+  - '⚡️ Fastest'
+  - '📶 First Available'
+  - '♻️ Load Balance'
+  {{ proxy_remarks | yaml | indent(2) }}
+
+- name: '⚡️ Fastest'
+  type: 'url-test'
+  tolerance: 150
+  url: 'https://cp.cloudflare.com/generate_204'
+  interval: 300
+  proxies:
+  {{ proxy_remarks | yaml | indent(2) }}
+
+- name: '📶 First Available'
+  type: 'fallback'
+  url: 'https://cp.cloudflare.com/generate_204'
+  interval: 300
+  proxies:
+  {{ proxy_remarks | yaml | indent(2) }}
+
+- name: '♻️ Load Balance'
+  type: 'load-balance'
+  url: 'https://cp.cloudflare.com/generate_204'
+  interval: 300
+  strategy: 'consistent-hashing'
+  proxies:
+  {{ proxy_remarks | yaml | indent(2) }}
+
+rule-providers:
+  LocalAreaNetwork:
+    type: http
+    behavior: classical
+    interval: 432000
+    path: ./rules/LocalAreaNetwork.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+  iran-sites:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
+    path: ./rules/iran_other.txt
+    interval: 432000
+  iran-ads:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
+    path: ./rules/iran_ads.txt
+    interval: 432000
+  ads:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://raw.githubusercontent.com/bigdargon/hostsVN/master/option/domain.txt"
+    path: ./rules/ads.txt
+    interval: 86400
+
+rules:
+  - RULE-SET,ads,REJECT
+  - RULE-SET,iran-ads,REJECT
+  - RULE-SET,iran-sites,DIRECT
+  - RULE-SET,LocalAreaNetwork,DIRECT
+  - DOMAIN-SUFFIX,ir,DIRECT
+  - GEOIP,IR,DIRECT
+  - MATCH,Proxy
