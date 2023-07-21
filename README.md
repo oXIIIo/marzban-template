@@ -41,6 +41,9 @@ echo 'CLASH_SUBSCRIPTION_TEMPLATE="clash/template.yml"' | sudo tee -a /opt/marzb
 marzban restart
 ```
 
+## بروزرسانی
+برای بروزرسانی تمپلیت فقط کافیست مرحله 1 را تکرار کنید.
+
 # لینک دانلود کلش متا
 - Android:
    - [Clash. Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid/releases/tag/Prerelease-alpha)
