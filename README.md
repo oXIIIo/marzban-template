@@ -46,7 +46,7 @@ marzban restart
 
 # لینک دانلود کلش متا
 - Android:
-   - [Clash. Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid/releases/tag/Prerelease-alpha)
+   - [Clash. Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
 - iOS:
   - [MFI](https://t.me/meta_for_ios)
 - Windows：
