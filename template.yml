@@ -157,14 +157,14 @@ rule-providers:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
     path: ./rules/iran_other.txt
     interval: 432000
   iran-ads:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
     path: ./rules/iran_ads.txt
     interval: 432000
   ads:
