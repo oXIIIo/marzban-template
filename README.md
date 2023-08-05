@@ -30,7 +30,7 @@
 sudo wget -N -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/master/template.yml
 ```
 
-2. با زدن دستور های زیر در ترمینال، مشخصات لازم را به فایل .env اضافه کنید:
+2. دستورات زیر رو تو ترمینال سرورتون بزنید:
 ```sh
 echo 'CUSTOM_TEMPLATES_DIRECTORY="/var/lib/marzban/templates/"' | sudo tee -a /opt/marzban/.env
 echo 'CLASH_SUBSCRIPTION_TEMPLATE="clash/template.yml"' | sudo tee -a /opt/marzban/.env
