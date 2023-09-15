@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Subscription Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vazirmatn">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fefce8;
+      font-family: "Vazirmatn", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    .profile-card {
+      position: relative;
+      border: 2px solid #000;
+      border-radius: 1rem;
+      background: #fff;
+      width: 20rem;
+      margin-top: 6rem;
+      margin-bottom: 2rem;
+    }
+
+    .profile-card::before,
+    .profile-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 1rem;
+      z-index: -1;
+      transition: transform 200ms ease-out;
+    }
+
+    .profile-card:hover::before {
+      transform: rotate(-3deg) scale(1.02) translate(-1%);
+    }
+
+    .profile-card:hover::after {
+      transform: rotate(-6deg) scale(1.02) translate(-1%);
+      z-index: -2;
+      transition-delay: 100ms;
+    }
+
+    .profile-card__avatar {
+      width: 80px;
+      height: 80px;
+      position: absolute;
+      border: 2px solid #000;
+      -o-object-fit: cover;
+      object-fit: cover;
+      box-shadow: 0 2px 0 #000;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -80%);
+      border-radius: 1rem;
+    }
+
+    .profile-card__bio {
+      background: #fef9c3;
+      padding: 2rem;
+      border-bottom: 2px dashed #000;
+      text-align: center;
+      border-radius: 1rem 1rem 0 0;
+      overflow: hidden;
+    }
+
+    .profile-card__bio-name {
+      font-size: 1.25em;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .profile-card__bio-title {
+      font-size: 0.875em;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .profile-card__links {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .profile-card__header {
+      text-align: center;
+      font-size: 1em;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .profile-card__separator {
+      border-bottom: 2px dashed #000;
+      border-radius: 1rem 1rem 0 0;
+      overflow: hidden;
+    }
+
+    .profile-card__links-button {
+      padding: 1rem;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      border: 2px solid #000;
+      border-radius: 0.5rem;
+      color: #000;
+      transition: box-shadow 200ms ease;
+      text-decoration: none;
+    }
+
+    .profile-card__links-button:hover {
+      box-shadow: -3px 3px 0 #000;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="profile-card">
+    <img alt="Avatar Image" class="profile-card__avatar"
+      src="https://images.weserv.nl/?url=https://raw.githubusercontent.com/Gozargah/Marzban-docs/master/screenshots/logo-dark.png?v=4&h=300&w=300&fit=cover&maxage=7d&bg=000" />
+    <div class="profile-card__bio">
+      <h1 class="profile-card__bio-name"> نام کاربری: {{ user.username }}</h1>
+      <h1 class="profile-card__bio-name"> {% if user.status.value == 'active' %}فعال{% elif user.status.value ==
+        'limited' %}محدود شده{% elif user.status.value == 'expired' %}منقضی شده{% elif user.status.value == 'disabled'
+        %}غیرفعال{% endif %} </h1>
+      <h2 class="profile-card__bio-title"> حجم مصرف شده: {{ user.used_traffic | bytesformat }}</h2>
+      {% if user.data_limit_reset_strategy != 'no_reset' %}
+      <h2 class="profile-card__bio-title" style="direction: ltr;">
+        (resets every {{ user.data_limit_reset_strategy.value }})
+      </h2>
+      {% endif %}
+      <h2 class="profile-card__bio-title"> حجم کل: {% if not user.data_limit %}∞{% else %}{{ user.data_limit |
+        bytesformat }}{% endif %}
+      </h2>
+      <h2 class="profile-card__bio-title"> مدت زمان باقیمانده: {% if not user.expire %} ∞ {% else %} {% set
+        current_timestamp =
+        now().timestamp() %} {% set remaining_days = ((user.expire - current_timestamp) // (24 * 3600)) %} {{
+        remaining_days | int }} روز {% endif %}
+      </h2>
+    </div>
+    <div class="profile-card__links">
+      <h1 class="profile-card__header">
+        افزودن سریع لینک سابسکریپشن
+      </h1>
+      <a class="profile-card__links-button" href="sing-box://import-remote-profile?url={{ user.subscription_url | urlencode }}#{{ user.username | urlencode }}"
+        rel="noopener noreferrer" target="_blank">اضافه کردن به sing-box</a>
+      <a class="profile-card__links-button" href="v2rayng://install-sub?url={{ user.subscription_url }}&name={{ user.username }}"
+        rel="noopener noreferrer" target="_blank">اضافه کردن به v2rayNG >= 1.8.6</a>
+      <a class="profile-card__links-button" href="v2rayng://install-config?url={{ user.subscription_url }}"
+        rel="noopener noreferrer" target="_blank">اضافه کردن به v2rayNG دیگر ورژن ها</a>
+      <a class="profile-card__links-button" href="sn://subscription?url={{ user.subscription_url }}&name={{ user.username }}"
+        rel="noopener noreferrer" target="_blank">اضافه کردن به NekoBox</a>
+      <a class="profile-card__links-button" href="streisand://import/{{ user.subscription_url }}"
+        rel="noopener noreferrer" target="_blank">اضافه کردن به Streisand</a>
+      <div class="profile-card__separator"></div>
+      <h1 class="profile-card__header">
+        برنامه اندروید
+      </h1>
+      <a class="profile-card__links-button"
+      href="https://github.com/SagerNet/sing-box/releases/download/v1.5.0-beta.6/SFA-1.5.0-beta.6-universal.apk"
+      rel="noopener noreferrer" target="_blank">sing-box</a>
+      <a class="profile-card__links-button"
+        href="https://github.com/2dust/v2rayNG/releases/download/1.8.6/v2rayNG_1.8.6.apk" rel="noopener noreferrer"
+        target="_blank">v2rayNG - GitHub</a>
+      <a class="profile-card__links-button" href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
+        rel="noopener noreferrer" target="_blank">v2rayNG - Google Play</a>
+      <a class="profile-card__links-button"
+        href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.4/NB4A-1.2.4-arm64-v8a.apk"
+        rel="noopener noreferrer" target="_blank">NekoBox v8a</a>
+      <a class="profile-card__links-button"
+        href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.4/NB4A-1.2.4-armeabi-v7a.apk"
+        rel="noopener noreferrer" target="_blank">NekoBox v7a</a>
+      <div class="profile-card__separator"></div>
+      <h1 class="profile-card__header">
+        برنامه iOS
+      </h1>
+      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/sing-box/id6451272673"
+        rel="noopener noreferrer" target="_blank">sing-box</a>
+      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/streisand/id6450534064"
+        rel="noopener noreferrer" target="_blank">Streisand</a>
+      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/shadowrocket/id932747118"
+        rel="noopener noreferrer" target="_blank">Shadowrocket 3$</a>
+      <div class="profile-card__separator"></div>
+      <h1 class="profile-card__header">
+        برنامه ویندوز
+      </h1>
+      <a class="profile-card__links-button"
+        href="https://github.com/2dust/v2rayN/releases/download/6.28/zz_v2rayN-With-Core-SelfContained.7z"
+        rel="noopener noreferrer" target="_blank">v2rayN</a>
+      <a class="profile-card__links-button"
+        href="https://github.com/MatsuriDayo/nekoray/releases/download/3.21/nekoray-3.21-2023-09-12-windows64.zip"
+        rel="noopener noreferrer" target="_blank">nekoray</a>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/oXIIIo/clash-meta-template" target="_blank" rel="noopener noreferrer">
+  <a href="https://github.com/oXIIIo/marzban-template/clash" target="_blank" rel="noopener noreferrer">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
       <img width="160" height="160" src="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
