@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://github.com/oXIIIo/subscription-template" target="_blank" rel="noopener noreferrer">
+  <a href="https://github.com/oXIIIo/marzban-template/tree/master/subscription" target="_blank" rel="noopener noreferrer">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/oXIIIo/subscription-template/master/preview.jpg">
-      <img width="363" height="328" src="https://raw.githubusercontent.com/oXIIIo/subscription-template/master/preview.jpg">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/preview.jpg">
+      <img width="363" height="328" src="https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/preview.jpg">
     </picture>
   </a>
 </p>
@@ -16,13 +16,13 @@
 یک قالب html ساده برای نمایش بهتر اطلاعات کاربر
 
 # ویژگی ها
-- افزودن سریع لینک سابسکریپشن به برنامه های v2rayNG و Streisand
+- افزودن سریع لینک سابسکریپشن به برنامه های v2rayNG، Streisand، NekoBox و sing-box
 - لینک دانلود اپلیکیشن های مورد نیاز
 
 # مراحل نصب
 1. دانلود فایل template
 ```sh
-sudo wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/oXIIIo/subscription-template/master/index.html
+sudo wget -N -P /var/lib/marzban/templates/subscription/ https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/index.html
 ```
 
 2. دستورات زیر رو تو ترمینال سرورتون بزنید:

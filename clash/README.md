@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/oXIIIo/marzban-template/clash" target="_blank" rel="noopener noreferrer">
+  <a href="https://github.com/oXIIIo/marzban-template/tree/master/clash" target="_blank" rel="noopener noreferrer">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
       <img width="160" height="160" src="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
@@ -27,13 +27,18 @@
 # مراحل نصب
 1. دانلود فایل template
 ```sh
-sudo wget -N -P /var/lib/marzban/templates/clash/  https://raw.githubusercontent.com/oXIIIo/clash-meta-template/master/template.yml
+sudo wget -N -P /var/lib/marzban/templates/clash/ https://raw.githubusercontent.com/oXIIIo/marzban-template/master/clash/default.yml
 ```
 
 2. دستورات زیر رو تو ترمینال سرورتون بزنید:
 ```sh
 echo 'CUSTOM_TEMPLATES_DIRECTORY="/var/lib/marzban/templates/"' | sudo tee -a /opt/marzban/.env
-echo 'CLASH_SUBSCRIPTION_TEMPLATE="clash/template.yml"' | sudo tee -a /opt/marzban/.env
+echo 'CLASH_SUBSCRIPTION_TEMPLATE="clash/default.yml"' | sudo tee -a /opt/marzban/.env
+```
+یا مقادیر زیر رو در فایل `.env` در پوشه `/opt/marzban` قرار بدین
+```sh
+CUSTOM_TEMPLATES_DIRECTORY="/var/lib/marzban/templates/"
+CLASH_SUBSCRIPTION_TEMPLATE="clash/default.yml"
 ```
 
 3. ری استارت مرزبان
