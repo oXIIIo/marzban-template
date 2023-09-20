@@ -58,3 +58,8 @@ marzban restart
 - macOS：
   - [SFM](https://apps.apple.com/us/app/sing-box/id6451272673)
 
+# حمایت از من
+
+<a href="https://nowpayments.io/donation?api_key=MG750CX-D7AMMH9-QWARQ7V-9ZKH9XQ&source=lk_donation&medium=referral" target="_blank">
+  <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments">
+</a>
