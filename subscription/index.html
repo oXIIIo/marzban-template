@@ -147,10 +147,21 @@
       <h2 class="profile-card__bio-title"> حجم کل: {% if not user.data_limit %}∞{% else %}{{ user.data_limit |
         bytesformat }}{% endif %}
       </h2>
-      <h2 class="profile-card__bio-title"> مدت زمان باقیمانده: {% if not user.expire %} ∞ {% else %} {% set
-        current_timestamp =
-        now().timestamp() %} {% set remaining_days = ((user.expire - current_timestamp) // (24 * 3600)) %} {{
-        remaining_days | int }} روز {% endif %}
+      <h2 class="profile-card__bio-title"> مدت زمان باقیمانده:
+        {% if not user.expire %}
+        ∞
+        {% else %}
+            {% set current_timestamp = now().timestamp() %}
+            {% set remaining_seconds = user.expire - current_timestamp %}
+            {% set remaining_days = remaining_seconds // (24 * 3600) %}
+            {% set remaining_hours = (remaining_seconds % (24 * 3600)) // 3600 %}
+            {% set remaining_minutes = (remaining_seconds % 3600) // 60 %}
+            {% if remaining_days >= 1 %}
+                {{ remaining_days | int }} روز {{ remaining_hours | int }} ساعت
+            {% else %}
+                {{ remaining_hours | int }} ساعت {{ remaining_minutes | int }} دقیقه
+            {% endif %}
+        {% endif %}
       </h2>
     </div>
     <div class="profile-card__links">
