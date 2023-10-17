@@ -2,7 +2,7 @@
   <a href="https://github.com/oXIIIo/marzban-template/tree/master/subscription" target="_blank" rel="noopener noreferrer">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/preview.jpg">
-      <img width="363" height="328" src="https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/preview.jpg">
+      <img width="372" height="408" src="https://raw.githubusercontent.com/oXIIIo/marzban-template/master/subscription/preview.jpg">
     </picture>
   </a>
 </p>
