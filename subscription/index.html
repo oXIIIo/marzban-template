@@ -241,7 +241,7 @@
         ∞
         {% else %}
             {% set current_timestamp = now().timestamp() %}
-            {% set remaining_seconds = user.expire - current_timestamp %}
+            {% set remaining_seconds = [user.expire - current_timestamp, 0] | max %}
             {% set remaining_days = remaining_seconds // (24 * 3600) %}
             {% set remaining_hours = (remaining_seconds % (24 * 3600)) // 3600 %}
             {% set remaining_minutes = (remaining_seconds % 3600) // 60 %}
