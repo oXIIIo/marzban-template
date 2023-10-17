@@ -87,12 +87,51 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      overflow: hidden;
     }
     .profile-card__header {
-      text-align: center;
+      text-align: right;
       font-size: 1.25em;
       font-weight: bold;
       color: #000;
+      display: flex;
+      -webkit-box-pack: justify;
+      justify-content: right;
+      cursor: pointer;
+    }
+    .profile-card__header::after {
+      content: "\276F";
+      width: 1rem;
+      height: 1rem;
+      text-align: center;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
+    }
+    .accordion {
+      width: 100%;
+      overflow: hidden;
+    }
+    .accordion:last-child {
+      margin-bottom: 0;
+    }
+    .accordion-content {
+      max-height: 0;
+      padding: 0 1rem;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+    }
+    input:checked+.profile-card__header::after {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+    input:checked~.accordion-content {
+      max-height: 100vh;
+      padding: 16px;
     }
     .profile-card__separator {
       border-bottom: 2px dashed #000;
@@ -109,6 +148,7 @@
       color: #000;
       transition: box-shadow 200ms ease;
       text-decoration: none;
+      margin-bottom: 0.5rem;
     }
     .profile-card__links-button:hover {
       box-shadow: -3px 3px 0 #000;
@@ -223,57 +263,75 @@
       </div>
     </div>
     <div class="profile-card__links">
-      <h1 class="profile-card__header">
-        افزودن سریع لینک سابسکریپشن
-      </h1>
-      <a class="profile-card__links-button" href="sing-box://import-remote-profile?url={{ user.subscription_url | urlencode }}#{{ user.username | urlencode }}"
-        rel="noopener noreferrer" target="_blank">اضافه کردن به sing-box</a>
-      <a class="profile-card__links-button" href="v2rayng://install-sub?url={{ user.subscription_url }}&name={{ user.username }}"
-        rel="noopener noreferrer" target="_blank">اضافه کردن به v2rayNG >= 1.8.6</a>
-      <a class="profile-card__links-button" href="v2rayng://install-config?url={{ user.subscription_url }}"
-        rel="noopener noreferrer" target="_blank">اضافه کردن به v2rayNG دیگر ورژن ها</a>
-      <a class="profile-card__links-button" href="sn://subscription?url={{ user.subscription_url }}&name={{ user.username }}"
-        rel="noopener noreferrer" target="_blank">اضافه کردن به NekoBox</a>
-      <a class="profile-card__links-button" href="streisand://import/{{ user.subscription_url }}"
-        rel="noopener noreferrer" target="_blank">اضافه کردن به Streisand</a>
+      <div class="accordion">
+        <input type="checkbox" name="quick-add" id="quick-add">
+        <label class="profile-card__header" for="quick-add">
+          افزودن سریع لینک سابسکریپشن
+        </label>
+        <div class="accordion-content">
+          <a class="profile-card__links-button" href="sing-box://import-remote-profile?url={{ user.subscription_url | urlencode }}#{{ user.username | urlencode }}"
+            rel="noopener noreferrer" target="_blank">اضافه کردن به sing-box</a>
+          <a class="profile-card__links-button" href="v2rayng://install-config?url{{ user.subscription_url }}"
+            rel="noopener noreferrer" target="_blank">اضافه کردن به v2rayNG</a>
+          <a class="profile-card__links-button" href="sn://subscription?url={{ user.subscription_url }}&name={{ user.username }}"
+            rel="noopener noreferrer" target="_blank">اضافه کردن به NekoBox</a>
+          <a class="profile-card__links-button" href="streisand://import/{{ user.subscription_url }}"
+            rel="noopener noreferrer" target="_blank">اضافه کردن به Streisand</a>
+        </div>
+      </div>
       <div class="profile-card__separator"></div>
-      <h1 class="profile-card__header">
-        برنامه اندروید
-      </h1>
-      <a class="profile-card__links-button"
-      href="https://github.com/SagerNet/sing-box/releases/download/v1.5.0-rc.6/SFA-1.5.0-rc.6-universal.apk"
-      rel="noopener noreferrer" target="_blank">sing-box</a>
-      <a class="profile-card__links-button"
-        href="https://github.com/2dust/v2rayNG/releases/download/1.8.8/v2rayNG_1.8.8.apk" rel="noopener noreferrer"
-        target="_blank">v2rayNG - GitHub</a>
-      <a class="profile-card__links-button" href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
-        rel="noopener noreferrer" target="_blank">v2rayNG - Google Play</a>
-      <a class="profile-card__links-button"
-        href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.5/NB4A-1.2.5-arm64-v8a.apk"
-        rel="noopener noreferrer" target="_blank">NekoBox v8a</a>
-      <a class="profile-card__links-button"
-        href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.5/NB4A-1.2.5-armeabi-v7a.apk"
-        rel="noopener noreferrer" target="_blank">NekoBox v7a</a>
+      <div class="accordion">
+        <input type="checkbox" name="android" id="android">
+        <label class="profile-card__header" for="android">
+          برنامه مورد نیاز برای اندروید
+        </label>
+        <div class="accordion-content">
+          <a class="profile-card__links-button"
+          href="https://github.com/SagerNet/sing-box/releases/download/v1.6.0-beta.2/SFA-1.6.0-beta.2-universal.apk"
+          rel="noopener noreferrer" target="_blank">sing-box</a>
+          <a class="profile-card__links-button"
+            href="https://github.com/2dust/v2rayNG/releases/download/1.8.9/v2rayNG_1.8.9.apk" rel="noopener noreferrer"
+            target="_blank">v2rayNG - GitHub</a>
+          <a class="profile-card__links-button" href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
+            rel="noopener noreferrer" target="_blank">v2rayNG - Google Play</a>
+          <a class="profile-card__links-button"
+            href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.7/NB4A-1.2.7-arm64-v8a.apk"
+            rel="noopener noreferrer" target="_blank">NekoBox v8a</a>
+          <a class="profile-card__links-button"
+            href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.2.7/NB4A-1.2.7-armeabi-v7a.apk"
+            rel="noopener noreferrer" target="_blank">NekoBox v7a</a>
+        </div>
+      </div>
       <div class="profile-card__separator"></div>
-      <h1 class="profile-card__header">
-        برنامه iOS
-      </h1>
-      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/sing-box/id6451272673"
-        rel="noopener noreferrer" target="_blank">sing-box</a>
-      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/streisand/id6450534064"
-        rel="noopener noreferrer" target="_blank">Streisand</a>
-      <a class="profile-card__links-button" href="https://apps.apple.com/us/app/shadowrocket/id932747118"
-        rel="noopener noreferrer" target="_blank">Shadowrocket 3$</a>
+      <div class="accordion">
+        <input type="checkbox" name="ios" id="ios">
+        <label class="profile-card__header" for="ios">
+          برنامه مورد نیاز برای iOS
+        </label>
+        <div class="accordion-content">
+          <a class="profile-card__links-button" href="https://apps.apple.com/us/app/sing-box/id6451272673"
+            rel="noopener noreferrer" target="_blank">sing-box</a>
+          <a class="profile-card__links-button" href="https://apps.apple.com/us/app/streisand/id6450534064"
+            rel="noopener noreferrer" target="_blank">Streisand</a>
+          <a class="profile-card__links-button" href="https://apps.apple.com/us/app/shadowrocket/id932747118"
+            rel="noopener noreferrer" target="_blank">Shadowrocket 3$</a>
+        </div>
+      </div>
       <div class="profile-card__separator"></div>
-      <h1 class="profile-card__header">
-        برنامه ویندوز
-      </h1>
-      <a class="profile-card__links-button"
-        href="https://github.com/2dust/v2rayN/releases/download/6.29/zz_v2rayN-With-Core-SelfContained.7z"
-        rel="noopener noreferrer" target="_blank">v2rayN</a>
-      <a class="profile-card__links-button"
-        href="https://github.com/MatsuriDayo/nekoray/releases/download/3.21/nekoray-3.21-2023-09-12-windows64.zip"
-        rel="noopener noreferrer" target="_blank">nekoray</a>
+      <div class="accordion">
+        <input type="checkbox" name="windows" id="windows">
+        <label class="profile-card__header" for="windows">
+          برنامه مورد نیاز برای ویندوز
+        </label>
+        <div class="accordion-content">
+          <a class="profile-card__links-button"
+            href="https://github.com/2dust/v2rayN/releases/download/6.29/zz_v2rayN-With-Core-SelfContained.7z"
+            rel="noopener noreferrer" target="_blank">v2rayN</a>
+          <a class="profile-card__links-button"
+            href="https://github.com/MatsuriDayo/nekoray/releases/download/3.23/nekoray-3.23-2023-10-14-windows64.zip"
+            rel="noopener noreferrer" target="_blank">nekoray</a>
+        </div>
+      </div>
     </div>
   </div>
 </body>
