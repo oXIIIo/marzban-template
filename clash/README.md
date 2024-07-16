@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/oXIIIo/marzban-template/tree/master/clash" target="_blank" rel="noopener noreferrer">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
-      <img width="160" height="160" src="https://raw.githubusercontent.com/Dreamacro/clash/master/docs/logo.png">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Clash-Mini/Clash.Mini/master/icon/Clash.Mini.ico">
+      <img width="160" height="160" src="https://raw.githubusercontent.com/Clash-Mini/Clash.Mini/master/icon/Clash.Mini.ico">
     </picture>
   </a>
 </p>
@@ -51,20 +51,23 @@ marzban restart
 
 # لینک دانلود کلش متا
 - Android:
-   - [Clash. Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid/releases)
+   - [FlClash](https://github.com/chen08209/FlClash/releases/latest)
+   - [Clash. Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid/releases/latest)
 - iOS:
   - [MFI](https://t.me/meta_for_ios)
 - Windows：
-  - [clash-verge](https://github.com/zzzgydi/clash-verge)
-  - [ClashMetaForWindows_Mini](https://github.com/kogekiplay/ClashMetaForWindows_Mini)
-  - [clashN](https://github.com/2dust/clashN)
-  - [v2rayN](https://github.com/2dust/v2rayN)
-  - [Clash.Mini](https://github.com/MetaCubeX/Clash.Mini)
+  - [FlClash](https://github.com/chen08209/FlClash/releases/latest)
+  - [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev/releases/latest)
+  - [clashN](https://github.com/2dust/clashN/releases/latest)
+  - [v2rayN](https://github.com/2dust/v2rayN/releases/latest)
+  - [Clash.Mini](https://github.com/MetaCubeX/Clash.Mini/releases/latest)
 - Mac OS：
-  - [clash-verge](https://github.com/zzzgydi/clash-verge)
-  - [ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta)
+  - [FlClash](https://github.com/chen08209/FlClash/releases/latest)
+  - [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev/releases/latest)
+  - [ClashX.Meta](https://github.com/MetaCubeX/ClashX.Meta/releases/latest)
 - Linux：
-  - [clash-verge](https://github.com/zzzgydi/clash-verge)
+  - [FlClash](https://github.com/chen08209/FlClash/releases/latest)
+  - [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev/releases/latest)
 
 # حمایت از من
 

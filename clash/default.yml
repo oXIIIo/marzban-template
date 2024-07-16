@@ -2,120 +2,61 @@ mixed-port: 10801
 allow-lan: true
 tcp-concurrent: true
 enable-process: true
-find-process-mode: always
+find-process-mode: strict
 global-client-fingerprint: chrome
 mode: rule
 log-level: debug
 ipv6: true
+bind-address: "*"
+keep-alive-interval: 30
+unified-delay: false
 
 profile:
-  store-selected: false
+  store-selected: true
   store-fake-ip: true
-  tracing: false
 
 sniffer:
   enable: true
-  sniffing:
-    - http
-    - tls
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
 
 tun:
   enable: true
-  stack: system
+  stack: mixed
   dns-hijack:
-    - 0.0.0.0:53
-    - any:53
-    - tcp://any:53
-  auto-detect-interface: true
+    - "any:53"
   auto-route: true
+  auto-detect-interface: true
   strict-route: true
 
 dns:
   enable: true
-  ipv6: true
+  listen: :1053
   prefer-h3: true
-  default-nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-    - 208.67.222.222
-    - 217.218.155.155
+  ipv6: true
   enhanced-mode: fake-ip
-  use-hosts: true
-  nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-    - 208.67.222.222
-    - 217.218.155.155
   fake-ip-filter:
-    - "*.lan"
-    - stun.*.*.*
-    - stun.*.*
-    - time.windows.com
-    - time.nist.gov
-    - time.apple.com
-    - time.asia.apple.com
-    - "*.openwrt.pool.ntp.org"
-    - pool.ntp.org
-    - ntp.ubuntu.com
-    - time1.apple.com
-    - time2.apple.com
-    - time3.apple.com
-    - time4.apple.com
-    - time5.apple.com
-    - time6.apple.com
-    - time7.apple.com
-    - time1.google.com
-    - time2.google.com
-    - time3.google.com
-    - time4.google.com
-    - api.joox.com
-    - joox.com
-    - "*.xiami.com"
-    - "*.msftconnecttest.com"
-    - "*.msftncsi.com"
-    - '+.xboxlive.com'
-    - "*.*.stun.playstation.net"
-    - xbox.*.*.microsoft.com
-    - "*.ipv6.microsoft.com"
-    - speedtest.cros.wr.pvp.net
-  fallback:
-    - '1.0.0.1'
-    - '8.8.4.4'
-  fallback-filter:
-    geoip: true
-    geoip-code: IR
-    ipcidr:
-      - '0.0.0.0/8'
-      - '10.0.0.0/8'
-      - '100.64.0.0/10'
-      - '127.0.0.0/8'
-      - '169.254.0.0/16'
-      - '172.16.0.0/12'
-      - '192.0.0.0/24'
-      - '192.0.2.0/24'
-      - '192.88.99.0/24'
-      - '192.168.0.0/16'
-      - '198.18.0.0/15'
-      - '198.51.100.0/24'
-      - '203.0.113.0/24'
-      - '224.0.0.0/3'
-      - '240.0.0.0/4'
-      - '::1/128'
-      - '64:ff9b:1::/48'
-      - 'fc00::/7'
-      - 'fe80::/10'
-    domain:
-      - +.google.com
-      - +.facebook.com
-      - +.youtube.com
-      - +.gvt1.com
-      - '+.twitter.com'
-      - '+.bing.com'
+    - "*"
+    - "+.lan"
+    - "+.local"
+  nameserver:
+    - 'https://1.1.1.1/dns-query#PROXY&h3=true'
+    - 'https://1.1.1.1/dns-query#PROXY'
+  proxy-server-nameserver:
+    - '178.22.122.100'
+    - '10.202.10.202'
+    - '78.157.42.100'
 
 {{ conf | except("proxy-groups", "port", "mode", "rules") | yaml }}
 
 proxy-groups:
-- name: 'Proxy'
+- name: 'PROXY'
   type: 'select'
   proxies:
   - '⚡️ Fastest'
@@ -126,61 +67,100 @@ proxy-groups:
 - name: '⚡️ Fastest'
   type: 'url-test'
   tolerance: 150
-  url: 'https://cp.cloudflare.com/generate_204'
+  url: 'https://www.gstatic.com/generate_204'
   interval: 300
   proxies:
   {{ proxy_remarks | yaml | indent(2) }}
 
 - name: '📶 First Available'
   type: 'fallback'
-  url: 'https://cp.cloudflare.com/generate_204'
+  url: 'https://www.gstatic.com/generate_204'
   interval: 300
   proxies:
   {{ proxy_remarks | yaml | indent(2) }}
 
 - name: '♻️ Load Balance'
   type: 'load-balance'
-  url: 'https://cp.cloudflare.com/generate_204'
+  url: 'https://www.gstatic.com/generate_204'
   interval: 300
   strategy: 'consistent-hashing'
   proxies:
   {{ proxy_remarks | yaml | indent(2) }}
 
 rule-providers:
-  LocalAreaNetwork:
-    type: http
-    behavior: classical
-    interval: 432000
-    path: ./rules/LocalAreaNetwork.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
-  iran-sites:
+  ir:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
-    path: ./rules/iran_other.txt
-    interval: 432000
-  iran-ads:
-    type: http
-    format: text
-    behavior: domain
-    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
-    path: ./rules/iran_ads.txt
-    interval: 432000
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ir.txt"
+    path: ./ruleset/ir.txt
+    interval: 86400
   ads:
     type: http
     format: text
     behavior: domain
-    url: "https://raw.githubusercontent.com/bigdargon/hostsVN/master/option/domain.txt"
-    path: ./rules/ads.txt
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ads.txt"
+    path: ./ruleset/ads.txt
+    interval: 86400
+  malware:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware.txt"
+    path: ./ruleset/malware.txt
+    interval: 86400
+  phishing:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing.txt"
+    path: ./ruleset/phishing.txt
+    interval: 86400
+  cryptominers:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/cryptominers.txt"
+    path: ./ruleset/cryptominers.txt
+    interval: 86400
+  apps:
+    type: http
+    format: text
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/apps.txt"
+    path: ./ruleset/apps.txt
+    interval: 86400
+  ircidr:
+    type: http
+    format: text
+    behavior: ipcidr
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ircidr.txt"
+    path: ./ruleset/ircidr.txt
+    interval: 86400
+  private:
+    type: http
+    format: text
+    behavior: ipcidr
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/private.txt"
+    path: ./ruleset/private.txt
+    interval: 86400
+  irasn:
+    type: http
+    format: text
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/irasn.txt"
+    path: ./ruleset/irasn.txt
     interval: 86400
 
 rules:
-  - IP-CIDR,10.10.34.0/24,Proxy
+  - IP-CIDR,10.10.34.0/24,PROXY
+  - RULE-SET,private,DIRECT,no-resolve
+  - RULE-SET,apps,DIRECT
   - RULE-SET,ads,REJECT
-  - RULE-SET,iran-ads,REJECT
-  - RULE-SET,iran-sites,DIRECT
-  - RULE-SET,LocalAreaNetwork,DIRECT
-  - DOMAIN-SUFFIX,ir,DIRECT
-  - GEOIP,IR,DIRECT
-  - MATCH,Proxy
+  - RULE-SET,malware,REJECT
+  - RULE-SET,phishing,REJECT
+  - RULE-SET,cryptominers,REJECT
+  - RULE-SET,ir,DIRECT
+  - RULE-SET,ircidr,DIRECT
+  - RULE-SET,irasn,DIRECT
+  - MATCH,PROXY
