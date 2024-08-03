@@ -13,6 +13,13 @@
         "detour": "proxy"
       },
       {
+        "tag": "dns_proxy_ipv4",
+        "address": "https://1.1.1.1/dns-query",
+        "address_resolver": "dns_direct",
+        "strategy": "ipv4_only",
+        "detour": "proxy"
+      },
+      {
         "tag": "dns_direct",
         "address": "local",
         "strategy": "prefer_ipv4",
@@ -49,13 +56,19 @@
       {
         "rule_set": "geosite-ir",
         "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-meta",
+        "server": "dns_proxy_ipv4"
       }
     ],
+    "final": "dns_proxy",
     "independent_cache": true
   },
   "ntp": {
     "enabled": true,
-    "server": "pool.ntp.org",
+    "server": "ir.pool.ntp.org",
+    "server_port": 123,
     "detour": "direct"
   },
   "inbounds": [
@@ -64,19 +77,21 @@
       "tag": "tun-in",
       "interface_name": "tun0",
       "mtu": 9000,
-      "inet4_address": "172.19.0.1/30",
-      "inet6_address": "fdfe:dcba:9876::1/126",
       "auto_route": true,
       "strict_route": true,
       "stack": "mixed",
-      "sniff": true
+      "sniff": true,
+      "sniff_override_destination": true,
+      "inet4_address": "172.19.0.1/30",
+      "inet6_address": "fdfe:dcba:9876::1/126"
     }
   ],
   "outbounds": [
     {
       "type": "selector",
       "tag": "proxy",
-      "outbounds": null
+      "outbounds": null,
+      "interrupt_exist_connections": true
     },
     {
       "type": "urltest",
@@ -224,6 +239,14 @@
         "tag": "geoip-phishing",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
+        "download_detour": "direct",
+        "update_interval": "72h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-meta",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-meta.srs",
         "download_detour": "direct",
         "update_interval": "72h0m0s"
       }
