@@ -335,6 +335,7 @@
         <div class="accordion-content">
           <a class="profile-card__links-button" href="https://apps.apple.com/us/app/sing-box-vt/id6673731168" rel="noopener noreferrer" target="_blank">sing-box</a>
           <a class="profile-card__links-button" href="https://apps.apple.com/us/app/streisand/id6450534064" rel="noopener noreferrer" target="_blank">Streisand</a>
+          <a class="profile-card__links-button" href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" rel="noopener noreferrer" target="_blank">Hiddify Next</a>
           <a class="profile-card__links-button" href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" rel="noopener noreferrer" target="_blank">Happ</a>
           <a class="profile-card__links-button" href="https://apps.apple.com/us/app/shadowrocket/id932747118" rel="noopener noreferrer" target="_blank">Shadowrocket 3$</a>
         </div>
@@ -369,7 +370,7 @@
   </div>
   <script>
     function displayJalaliDate(dateString, elementId) {
-      const date = new Date(dateString);
+      const date = new Date(dateString + "Z");
       const options = {
         year: 'numeric',
         month: '2-digit',
@@ -377,6 +378,7 @@
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
+        timeZone: 'Asia/Tehran'
       };
       const jalaliDate = date.toLocaleDateString('fa-IR-u-nu-latn', options);
       document.getElementById(elementId).innerText = jalaliDate;
